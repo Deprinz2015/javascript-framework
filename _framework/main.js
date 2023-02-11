@@ -23,7 +23,9 @@ const registerComponent = (component) => {
             for (const clickEl of clickElements) {
                 const clickFn = clickEl.getAttribute('click');
                 if (component[clickFn] && typeof component[clickFn] === "function") {
-                    clickEl.addEventListener('onclick', component[clickFn]);
+                    clickEl.addEventListener('click', () => {
+                        component[clickFn].call(component)
+                    });
                 }
             }
         }
