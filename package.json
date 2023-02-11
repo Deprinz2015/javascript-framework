@@ -1,0 +1,7 @@
+{
+  "name": "frameworktests",
+  "version": "1.0.0",
+  "scripts": {
+    "template": "node template.task.js"
+  }
+}
