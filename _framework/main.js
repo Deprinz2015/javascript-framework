@@ -8,7 +8,7 @@ Component has:
 */
 
 const registerComponent = (component) => {
-    
+
 };
 
 
@@ -23,5 +23,5 @@ const registerComponent = (component) => {
 
 
 export const Framework = {
-
+    registerComponent: registerComponent
 };
