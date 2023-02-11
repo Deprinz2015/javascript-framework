@@ -1,5 +1,5 @@
 export const templates = {
-    "templates/helloworld.template.html": "<h1>Hello World</h1>",
+    "templates/helloworld.template.html": "<h1>Hello World</h1>\n\n<button click=\"clickMe\">Press me</button>",
     "templates/testTemplates/hellounderworld.template.html": "<h1>Hello Underworld</h1>",
     "templates/testTemplates2/further/hellocloud.template.html": "<h1>Hello Cloud</h1>",
     "templates/testTemplates2/further/hellosea.template.html": "<h1>Hello Sea</h1>",
