@@ -3,8 +3,8 @@ console.log('Loading Templates...');
 const fs = require('fs');
 const path = require('path');
 
-const pathToTemplates = 'src/templates';
-const pathToTemplateCache = 'src/js/templates/templateCache.js';
+const pathToTemplates = 'templates';
+const pathToTemplateCache = '_framework/templates/templateCache.js';
 
 const templateCacheString = 'export const templates = {{templates}};';
 
