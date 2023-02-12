@@ -11,9 +11,9 @@ export const renderDoc = (doc) => {
 
         const elements = doc.getElementsByTagName(tag);
         for (const el of elements) {
-            let comp = el.my_comp ? el.my_comp : Object.create(component);
+            let comp = el.my_comp ? el.my_comp : ComponentRegistry.createNewComponentObject(tag, el);
             el.my_comp = comp;
-            comp.render(el);
+            comp.render();
         }
     }
 }

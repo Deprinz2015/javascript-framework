@@ -1,3 +1,4 @@
 import {renderDoc} from "./renderDoc.js";
 
-setInterval(() => renderDoc(document), 2000);
+setTimeout(() => renderDoc(document), 200);
+//setInterval(() => renderDoc(document), 2000);

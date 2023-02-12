@@ -19,15 +19,43 @@ function getComponent(tag) {
 
 function getTags() {
     let tags = [];
-    for(const tag in this._registry) {
+    for (const tag in this._registry) {
         tags.push(tag);
     }
     return tags;
+}
+
+function createNewComponentObject(tag, el) {
+    const component = this._registry[tag];
+
+    let createdComponent = Object.create(component, {
+        model: {
+            value: component.model,
+            writable: true
+        },
+        element: {
+            value: el
+        }
+    });
+
+    const proxyHandler = {
+        set(target, prop) {
+            createdComponent.render();
+            return Reflect.set(...arguments);
+        }
+    };
+
+    createdComponent.model = new Proxy(Object.create(component.model), proxyHandler);
+
+    console.log(createdComponent);
+
+    return createdComponent;
 }
 
 export const ComponentRegistry = {
     _registry: {},
     registerComponent: registerComponent,
     getComponent: getComponent,
-    getTags: getTags
+    getTags: getTags,
+    createNewComponentObject: createNewComponentObject
 };

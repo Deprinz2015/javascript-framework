@@ -1,7 +1,7 @@
 import {TemplateLoader} from "../templates/templateLoader.js";
 import {renderDoc} from "../renderDoc.js";
 
-function render(el) {
+function render() {
     if (!this.template) {
         if(!this.templateURL) {
             console.error('No Template URL given, cannot Render Component');
@@ -13,14 +13,14 @@ function render(el) {
 
     const component = this;
 
-    el.innerHTML = this.template;
+    this.element.innerHTML = this.template;
 
-    registerClicks.call(this, el);
+    registerClicks.call(this, this.element);
 
-    renderDoc(el);
+    renderDoc(this.element);
 
     if (component.postRender && typeof component.postRender === "function") {
-        component.postRender();
+        component.postRender.call(this);
     }
 }
 
@@ -39,7 +39,7 @@ function registerClicks(el) {
 }
 
 export const Component = {
-    model: null,
+    model: {},
     templateURL: null,
     element: null,
     render: render
