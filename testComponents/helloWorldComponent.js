@@ -1,16 +1,15 @@
-import {Framework} from "../_framework/main.js";
+import {Component} from "../_framework/components/Component.js";
+import {ComponentRegistry} from "../_framework/components/registry.js";
 
-const mainContainer = {
-    model: {
-        counter: 0
-    },
-    tag: 'main-container',
+function clickMe() {
+    console.log(++this.counter);
+}
+
+const HelloWorldComponent = {
+    __proto__: Component,
     templateURL: 'templates/helloworld.template.html',
-    clickMe: function () {
-        this.model.counter += 1;
-        console.log(this.model.counter);
-    }
-};
+    counter: 0,
+    clickMe: clickMe
+}
 
-
-Framework.registerComponent(mainContainer);
+ComponentRegistry.registerComponent('main-container', HelloWorldComponent);
