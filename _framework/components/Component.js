@@ -56,7 +56,7 @@ function registerClicks(el) {
         const clickFn = clickEl.getAttribute('click');
         if (component.controller[clickFn] && typeof component.controller[clickFn] === "function") {
             clickEl.addEventListener('click', () => {
-                component.controller[clickFn].call(component)
+                component.controller[clickFn]();
             });
         }
     }
