@@ -19,17 +19,11 @@ function getMulti() {
     return this.model.multi;
 }
 
-function postRender() {
-    console.log('I just got rendered!');
-    console.log('Counter is at: ' + this.model.counter);
-}
-
 const HelloWorldComponent = {
     __proto__: Component,
     templateURL: 'templates/helloworld.template.html',
     model: model,
-    controller: controller,
-    postRender: postRender
+    controller: controller
 }
 
 ComponentRegistry.registerComponent('main-container', HelloWorldComponent);
