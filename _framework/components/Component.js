@@ -38,19 +38,25 @@ function replaceBindings(el) {
             .replace('{{', '')
             .replace(new RegExp('}}$'), '');
 
-        el.innerHTML = el.innerHTML.replace(match[0], eval(expression));
+        const funcExpression = new Function('model', 'controller', `"use strict"; return (${expression});`);
+
+        el.innerHTML = el.innerHTML.replace(match[0], funcExpression(model, controller));
     }
 }
 
 function registerClicks(el) {
     const component = this;
 
+    if(!component.controller) {
+        return;
+    }
+
     const clickElements = el.querySelectorAll('[click]');
     for (const clickEl of clickElements) {
         const clickFn = clickEl.getAttribute('click');
-        if (component[clickFn] && typeof component[clickFn] === "function") {
+        if (component.controller[clickFn] && typeof component.controller[clickFn] === "function") {
             clickEl.addEventListener('click', () => {
-                component[clickFn].call(component)
+                component.controller[clickFn].call(component)
             });
         }
     }

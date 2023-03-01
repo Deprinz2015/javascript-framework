@@ -48,7 +48,9 @@ function createNewComponentObject(tag, el) {
 
     createdComponent.model = new Proxy(Object.create(component.model), proxyHandler);
 
-    console.log(createdComponent);
+    for(let func in createdComponent.controller) {
+        createdComponent.controller[func] = createdComponent.controller[func].bind(createdComponent);
+    }
 
     return createdComponent;
 }
