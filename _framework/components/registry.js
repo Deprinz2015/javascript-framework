@@ -35,6 +35,10 @@ function createNewComponentObject(tag, el) {
         },
         element: {
             value: el
+        },
+        controller: {
+            value: {},
+            writable: true
         }
     });
 
@@ -48,8 +52,8 @@ function createNewComponentObject(tag, el) {
 
     createdComponent.model = new Proxy(Object.create(component.model), proxyHandler);
 
-    for(let func in createdComponent.controller) {
-        createdComponent.controller[func] = createdComponent.controller[func].bind(createdComponent);
+    for(let func in component.controller) {
+        createdComponent.controller[func] = component.controller[func].bind(createdComponent);
     }
 
     return createdComponent;
