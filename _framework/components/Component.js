@@ -15,12 +15,30 @@ function render() {
 
     this.element.innerHTML = this.template;
 
+    replaceBindings.call(this, this.element);
+
     registerClicks.call(this, this.element);
 
     renderDoc(this.element);
 
     if (component.postRender && typeof component.postRender === "function") {
         component.postRender.call(this);
+    }
+}
+
+function replaceBindings(el) {
+    const component = this;
+    const model = component.model;
+    const controller = component.controller;
+
+    const bindingIndices = [...el.innerHTML.matchAll(new RegExp(/\{\{.*}}/, 'gi'))];
+
+    for(const match of bindingIndices) {
+        const expression = match[0]
+            .replace('{{', '')
+            .replace(new RegExp('}}$'), '');
+
+        el.innerHTML = el.innerHTML.replace(match[0], eval(expression));
     }
 }
 
