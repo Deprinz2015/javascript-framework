@@ -1,5 +1,6 @@
 import {TemplateLoader} from "../templates/templateLoader.js";
 import {renderDoc} from "../renderDoc.js";
+import {eventListeners} from "../eventListeners/eventListeners.js";
 
 function render() {
     if (!this.template) {
@@ -17,7 +18,7 @@ function render() {
 
     replaceBindings.call(this, this.element);
 
-    registerClicks.call(this, this.element);
+    registerListeners.call(this, this.element);
 
     renderDoc(this.element);
 
@@ -44,20 +45,21 @@ function replaceBindings(el) {
     }
 }
 
-function registerClicks(el) {
+function registerListeners(el) {
     const component = this;
 
     if(!component.controller) {
         return;
     }
 
-    const clickElements = el.querySelectorAll('[click]');
-    for (const clickEl of clickElements) {
-        const clickFn = clickEl.getAttribute('click');
-        if (component.controller[clickFn] && typeof component.controller[clickFn] === "function") {
-            clickEl.addEventListener('click', () => {
-                component.controller[clickFn]();
-            });
+    for(const listener of eventListeners) {
+        const elements = el.querySelectorAll(`[${listener.attribute}]`);
+        for(const element of elements) {
+            const fnName = element.getAttribute(listener.attribute);
+            if(component.controller[fnName] && typeof component.controller[fnName] === 'function'){
+                const fn = component.controller[fnName];
+                element.addEventListener(listener.event, fn);
+            }
         }
     }
 }
