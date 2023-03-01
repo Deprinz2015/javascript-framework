@@ -1,5 +1,5 @@
-import {Component} from "../_framework/components/Component.js";
-import {ComponentRegistry} from "../_framework/components/registry.js";
+import {Component} from "../../_framework/components/Component.js";
+import {ComponentRegistry} from "../../_framework/components/registry.js";
 
 let model = {
     counter: 0

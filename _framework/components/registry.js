@@ -40,8 +40,9 @@ function createNewComponentObject(tag, el) {
 
     const proxyHandler = {
         set(target, prop) {
+            const response = Reflect.set(...arguments);
             createdComponent.render();
-            return Reflect.set(...arguments);
+            return response;
         }
     };
 

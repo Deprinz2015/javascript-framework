@@ -4,9 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 const pathToTemplates = 'templates';
-const pathToTemplateCache = '_framework/templates/templateCache.js';
+const pathToTemplateCache = 'src/templates.js';
 
-const templateCacheString = 'export const templates = {{templates}};';
+const templateCacheString = 'import {templateCache} from "../_framework/templates/templateCache.js";\n\n';
+const templatePutString = 'templateCache.put({{url}}, {{template}});\n\n';
 
 const loadAllFilesFromDir = async (dir) => {
     let filePaths = [];
@@ -39,9 +40,13 @@ const compileTemplates = async () => {
         const templateString = await fs.promises.readFile(file, 'utf-8');
         templates[file] = templateString.trim();
     }
+    let resultTemplateString = templateCacheString;
 
-    const jsonString = JSON.stringify(templates, null, 4);
-    const resultTemplateString = templateCacheString.replace('{{templates}}', jsonString);
+    for(let key in templates) {
+        resultTemplateString += templatePutString
+            .replace('{{url}}', JSON.stringify(key))
+            .replace('{{template}}', JSON.stringify(templates[key]));
+    }
 
     await fs.promises.writeFile(pathToTemplateCache, resultTemplateString, 'utf-8');
 };
