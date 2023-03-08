@@ -1,7 +1,5 @@
 import {ComponentRegistry} from "./components/registry.js";
 
-// TODO Rendering
-
 export const renderDoc = (doc) => {
     for(const tag of ComponentRegistry.getTags()) {
         const component = ComponentRegistry.getComponent(tag);
